@@ -133,8 +133,14 @@ class ElasticSearch(BaseSearch):
     def index(self, index, doc_type, id_=None, body=None):
         return self.elastic.index(index=index, doc_type=doc_type, id=id_, body=body)
 
+    def delete(self, index, doc_type, id_):
+        return self.elastic.delete(index=index, doc_type=doc_type, id=id_)
+
     def index_wiki(self, name, body):
         self.index('wiki', 'page', id_=name, body=body)
+
+    def delete_wiki(self, name):
+        self.delete('wiki', 'page', id_=name)
 
     def delete_index(self, index):
         return self.elastic.indices.delete(index=index, ignore=[400, 404])
